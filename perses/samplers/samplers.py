@@ -31,7 +31,7 @@ cache.global_context_cache.platform = configure_platform(utils.get_fastest_platf
 from perses.annihilation.ncmc_switching import NCMCEngine
 from perses.dispersed import feptasks
 from perses.storage import NetCDFStorageView
-from perses.utils.openeye import smiles_to_oemol
+#from perses.utils.openeye import smiles_to_oemol
 
 
 ################################################################################
@@ -628,7 +628,7 @@ class SAMSSampler(object):
 
         """
         from scipy.special import logsumexp
-        from perses.utils.openeye import smiles_to_oemol
+        #from perses.utils.openeye import smiles_to_oemol
 
         # Keep copies of initializing arguments.
         # TODO: Make deep copies?

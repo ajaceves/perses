@@ -14,8 +14,8 @@ except:
 from nose.plugins.attrib import attr
 from openmmtools.constants import kB
 from perses.utils.data import get_data_filename
-from perses.utils.openeye import OEMol_to_omm_ff
-from perses.utils.smallmolecules import render_atom_mapping
+#from perses.utils.openeye import OEMol_to_omm_ff
+#from perses.utils.smallmolecules import render_atom_mapping
 from unittest import skipIf
 
 temperature = 300*unit.kelvin
@@ -699,7 +699,7 @@ def test_simple_heterocycle_mapping(iupac_pairs = [('benzene', 'pyridine')]):
 if __name__ == "__main__":
 
 #    test_run_point_mutation_propose()
-#    test_mutate_from_every_amino_to_every_other()
+     test_mutate_from_every_amino_to_every_other()
 #    test_specify_allowed_mutants()
 #    test_propose_self()
 #    test_limiting_allowed_residues()
@@ -708,4 +708,4 @@ if __name__ == "__main__":
 #    test_alanine_dipeptide_map()
 #    test_always_change()
 #    test_molecular_atom_mapping()
-    test_no_h_map()
+#    test_no_h_map()

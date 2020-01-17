@@ -33,20 +33,20 @@ import sys, math
 import numpy as np
 from functools import partial
 from pkg_resources import resource_filename
-from openeye import oechem, oeshape, oeomega
+#from openeye import oechem, oeshape, oeomega
 from openmmtools import testsystems
 from openmmtools import states
 from openmmtools.mcmc import MCMCSampler, LangevinSplittingDynamicsMove
 from perses.utils.smallmolecules import sanitizeSMILES, canonicalize_SMILES
 from perses.storage import NetCDFStorage, NetCDFStorageView
-from perses.rjmc.topology_proposal import OESMILES_OPTIONS
+#from perses.rjmc.topology_proposal import OESMILES_OPTIONS
 from perses.rjmc.geometry import FFAllAngleGeometryEngine
 import tempfile
 import copy
 from openmmtools.constants import kB
 from perses.rjmc.topology_proposal import SystemGenerator
 from unittest import skipIf
-from perses.dispersed.utils import minimize #updated minimizer
+#from perses.dispersed.utils import minimize #updated minimizer
 from openmmtools.states import ThermodynamicState, SamplerState
 
 # TODO: Use dummy system generator to work around SystemGenerator issues

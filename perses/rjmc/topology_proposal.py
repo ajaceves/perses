@@ -14,13 +14,13 @@ import logging
 import itertools
 import json
 import os
-import openeye.oechem as oechem
+#import openeye.oechem as oechem
 import numpy as np
-import openeye.oeomega as oeomega
+#import openeye.oeomega as oeomega
 import tempfile
 import networkx as nx
 from openmoltools import forcefield_generators
-import openeye.oegraphsim as oegraphsim
+#import openeye.oegraphsim as oegraphsim
 from perses.rjmc.geometry import FFAllAngleGeometryEngine
 from perses.storage import NetCDFStorageView
 from io import StringIO
@@ -37,7 +37,7 @@ except ImportError:
 # CONSTANTS
 ################################################################################
 
-OESMILES_OPTIONS = oechem.OESMILESFlag_DEFAULT | oechem.OESMILESFlag_ISOMERIC | oechem.OESMILESFlag_Hydrogens
+#OESMILES_OPTIONS = oechem.OESMILESFlag_DEFAULT | oechem.OESMILESFlag_ISOMERIC | oechem.OESMILESFlag_Hydrogens
 
 
 # TODO write a mapping-protocol class to handle these options
@@ -45,19 +45,19 @@ OESMILES_OPTIONS = oechem.OESMILESFlag_DEFAULT | oechem.OESMILESFlag_ISOMERIC | 
 # weak requirements for mapping atoms == more atoms mapped, more in core
 # atoms need to match in aromaticity. Same with bonds.
 # maps ethane to ethene, CH3 to NH2, but not benzene to cyclohexane
-WEAK_ATOM_EXPRESSION = oechem.OEExprOpts_EqAromatic | oechem.OEExprOpts_EqNotAromatic
-WEAK_BOND_EXPRESSION = oechem.OEExprOpts_Aromaticity
+#WEAK_ATOM_EXPRESSION = oechem.OEExprOpts_EqAromatic | oechem.OEExprOpts_EqNotAromatic
+#WEAK_BOND_EXPRESSION = oechem.OEExprOpts_Aromaticity
 
 # default atom expression, requires same aromaticitiy and hybridization
 # bonds need to match in bond order
 # ethane to ethene wouldn't map, CH3 to NH2 would map but CH3 to HC=O wouldn't
-DEFAULT_ATOM_EXPRESSION = oechem.OEExprOpts_Hybridization | oechem.OEExprOpts_HvyDegree
-DEFAULT_BOND_EXPRESSION = oechem.OEExprOpts_DefaultBonds
+#DEFAULT_ATOM_EXPRESSION = oechem.OEExprOpts_Hybridization
+#DEFAULT_BOND_EXPRESSION = oechem.OEExprOpts_DefaultBonds
 
 # strong requires same hybridization AND the same atom type
 # bonds are same as default, require them to match in bond order
-STRONG_ATOM_EXPRESSION = oechem.OEExprOpts_Hybridization  | oechem.OEExprOpts_HvyDegree | oechem.OEExprOpts_DefaultAtoms
-STRONG_BOND_EXPRESSION = oechem.OEExprOpts_DefaultBonds
+#STRONG_ATOM_EXPRESSION = oechem.OEExprOpts_Hybridization | oechem.OEExprOpts_DefaultAtoms
+#STRONG_BOND_EXPRESSION = oechem.OEExprOpts_DefaultBonds
 
 ################################################################################
 # LOGGER
@@ -118,7 +118,7 @@ def deepcopy_topology(source_topology):
     topology = app.Topology()
     append_topology(topology, source_topology)
     return topology
-
+'''
 def has_h_mapped(atommap, mola: oechem.OEMol, molb: oechem.OEMol):
     for a_atom, b_atom in atommap.items():
         if mola.GetAtom(oechem.OEHasAtomIdx(a_atom)).GetAtomicNum() == 1 or molb.GetAtom(oechem.OEHasAtomIdx(b_atom)).GetAtomicNum() == 1:
@@ -714,7 +714,7 @@ class SmallMoleculeAtomMapper(object):
     @property
     def smiles_list(self):
         return self._unique_smiles_list
-
+'''
 
 
 from perses.rjmc.geometry import NoTorsionError
@@ -1455,7 +1455,7 @@ class PolymerProposalEngine(ProposalEngine):
             for atom in new_res.atoms():
                 first_atom_index_new = atom.index
                 break
-
+            #heres a break. it requires openeye...
             old_oemol_res = FFAllAngleGeometryEngine.oemol_from_residue(old_res)
             new_oemol_res = FFAllAngleGeometryEngine.oemol_from_residue(new_res)
             # local_atom_map : dict, key : index of atom in new residue, value : index of atom in old residue.
@@ -1755,9 +1755,10 @@ class PointMutationEngine(PolymerProposalEngine):
                 new_res = mutant[-3:]
                 if allowed_mutations.index((residue_id, new_res)) == proposed_location:
                     return index_to_new_residues
-
-        residue_id = allowed_mutations[proposed_location][0]
-        residue_name = allowed_mutations[proposed_location][1]
+        print(allowed_mutations)
+        #breaks if list of lists
+        residue_id = allowed_mutations[proposed_location][0][0]
+        residue_name = allowed_mutations[proposed_location][0][1]
         # Verify residue with mutation exists in old topology and is not the first or last residue
         # original_residue : simtk.openmm.app.topology.Residue
         original_residue = ''
@@ -2286,7 +2287,7 @@ class DummySystemGenerator(SystemGenerator):
                 temperature = barostat.getTemperature()
             frequency = barostat.getFrequency()
             self._barostat = (pressure, temperature, frequency)
-
+'''
 class SmallMoleculeSetProposalEngine(ProposalEngine):
     """
     This class proposes new small molecules from a prespecified set. It uses
@@ -3575,3 +3576,4 @@ class PropaneProposalEngine(NullProposalEngine):
                 atom_map[bond[0].index] = bond[0].index
                 atom_map[bond[1].index] = bond[1].index
         return atom_map
+'''

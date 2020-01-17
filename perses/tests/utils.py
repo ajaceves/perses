@@ -17,8 +17,8 @@ import numpy as np
 from functools import partial
 from pkg_resources import resource_filename
 from perses.rjmc import geometry
-from perses.rjmc.topology_proposal import SystemGenerator, TopologyProposal, SmallMoleculeSetProposalEngine
-from openeye import oechem
+from perses.rjmc.topology_proposal import SystemGenerator, TopologyProposal#,SmallMoleculeSetProposalEngine
+#from openeye import oechem
 if sys.version_info >= (3, 0):
     from io import StringIO
     from subprocess import getstatusoutput
